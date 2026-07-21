@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ростехнадзор Кроссворд</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 40px);
+            grid-template-rows: repeat(5, 40px);
+            gap: 2px;
+            margin-bottom: 20px;
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .cell.dark {
+            background-color: #333;
+            border: none;
+        }
+        .cell.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+        .questions {
+            max-width: 400px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Мини-Кроссворд: Безопасность</h1>
+    
+    <!-- Сетка 5х5. dark - пустые клетки, остальные - инпуты для букв -->
+    <div class="grid">
+        <input type="text" maxlength="1" class="cell" id="c_0_0" data-letter="О">
+        <input type="text" maxlength="1" class="cell" id="c_0_1" data-letter="Т">
+        <input type="text" maxlength="1" class="cell" id="c_0_2" data-letter="К">
+        <input type="text" maxlength="1" class="cell" id="c_0_3" data-letter="А">
+        <input type="text" maxlength="1" class="cell" id="c_0_4" data-letter="З">
+        
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <input type="text" maxlength="1" class="cell" id="c_1_4" data-letter="А">
+        
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <input type="text" maxlength="1" class="cell" id="c_2_4" data-letter="К">
+        
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <input type="text" maxlength="1" class="cell" id="c_3_4" data-letter="О">
+        
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <div class="cell dark"></div>
+        <input type="text" maxlength="1" class="cell" id="c_4_4" data-letter="Н">
+    </div>
+
+    <div class="questions">
+        <h3>Вопросы:</h3>
+        <p><strong>По горизонтали:</strong><br>1. Самопроизвольный выход из строя технической системы (ОТКАЗ).</p>
+        <p><strong>По вертикали:</strong><br>2. Нормативно-правовой акт, содержащий обязательные требования безопасности (ЗАКОН).</p>
+    </div>
+
+    <button onclick="checkCrossword()">Проверить ответы</button>
+
+    <script>
+        function checkCrossword() {
+            // Находим все текстовые ячейки
+            const cells = document.querySelectorAll('.cell:not(.dark)');
+            let allCorrect = true;
+
+            cells.forEach(cell => {
+                const userAnswer = cell.value.toUpperCase();
+                const correctAnswer = cell.getAttribute('data-letter');
+
+                if (userAnswer === correctAnswer) {
+                    cell.classList.add('correct'); // Подсвечиваем зеленым
+                } else {
+                    cell.classList.remove('correct');
+                    allCorrect = false;
+                }
+            });
+
+            if (allCorrect) {
+                alert('Отлично! Все термины разгаданы верно!');
+            }
+        }
+    </script>
+</body>
+</html>
